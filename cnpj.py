@@ -38,3 +38,7 @@ print(df[['Nome da empresa', 'CNPJ', 'Base CNPJ', 'DV Calculado']].to_string(ind
 
 df.to_excel('cnpjs_bases_com_dv.xlsx', index=False)
 print("\nArquivo 'cnpjs_bases_com_dv.xlsx' gerado com sucesso!")
+
+
+
+
