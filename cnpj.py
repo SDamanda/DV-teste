@@ -31,11 +31,11 @@ def extrair_base_cnpj(cnpj):
     return cnpj_str[:12]
     
     def completar_cnpj(cnpj_base):
-    filial = '0001'
-    base_cnpj = cnpj_base + filial
-    dv = calcula_dv_cnpj(base_cnpj)
-    cnpj_completo = base_cnpj + dv
-    return cnpj_completo
+     filial = '0001'
+     base_cnpj = cnpj_base + filial
+     dv = calcula_dv_cnpj(base_cnpj)
+     cnpj_completo = base_cnpj + dv
+     return cnpj_completo
 
 df['Base CNPJ'] = df['CNPJ'].apply(extrair_base_cnpj)
 df['DV Calculado'] = df['Base CNPJ'].apply(calcular_dv_cnpj_base)
