@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useState } from 'react'
-import fundo from "./img/fu
+import fundo from "./img/fundo.mp4"
 
 function App() {
   const [quantidade, setQuantidade] = useState(1);
