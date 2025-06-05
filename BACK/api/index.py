@@ -4,7 +4,7 @@ import pandas as pd
 import re
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def calcular_dv_cnpj_base(cnpj_base):
     cnpj_base = re.sub(r'\D', '', str(cnpj_base))
@@ -29,8 +29,8 @@ def extrair_base_cnpj(cnpj):
     base_8 = cnpj_limpo[:8].zfill(8)
     return f"{base_8}0001"
 
-df = pd.read_csv('empresas.csv', sep=',') 
-df.columns = df.columns.str.strip()
+
+df = pd.read_csv('empresas.csv', sep='[;,]', engine='python')
 df['Base CNPJ'] = df['CNPJ'].apply(extrair_base_cnpj)
 df['DV Calculado'] = df['Base CNPJ'].apply(calcular_dv_cnpj_base)
 df['CNPJ Completo'] = df['Base CNPJ'] + df['DV Calculado']
@@ -41,7 +41,7 @@ def home():
 
 @app.route('/buscar')
 def buscar():
-    termo = request.args.get('q', '').strip().lower()
+    termo = request.args.get('q','').strip().lower()
     
     if termo.isdigit():
         n = int(termo)
@@ -49,11 +49,17 @@ def buscar():
         resposta = resultados[['Nome da empresa', 'CNPJ']].to_dict(orient='records')
         return jsonify(resposta)
     
-    resultados = df[df['Nome da empresa'].str.lower().str.contains(termo, na=False, regex=False)]
-    resultados = resultados.sort_values(by='Nome da empresa', key=lambda x: x.str.len())
+    resultados = df[
+        df['Nome da empresa'].astype(str).str.lower().str.contains(termo, na=False, regex=False)
+    ].sort_values(
+        by='Nome da empresa',
+        key=lambda x: x.astype(str).str.len()
+    )
     resposta = resultados[['Nome da empresa', 'CNPJ']].to_dict(orient='records')
     return jsonify(resposta)
 
-if __name__=='__main__':
-    app.run(debug=False, port=5001)
+
+if __name__ == '__main__':
+    app.run(port=5004, debug=True)
+
 
