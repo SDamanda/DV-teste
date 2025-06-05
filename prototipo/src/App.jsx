@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useState } from 'react'
-import fundo from "./img/fundo.mp4"
+import fundo from "./img/fu
 
 function App() {
   const [quantidade, setQuantidade] = useState(1);
@@ -9,7 +9,7 @@ function App() {
       <video autoPlay muted loop className="bg-video">
         <source src={fundo} type="video/mp4" />
       </video>
-
+            
       <div id='introdução'>
         <h1>FLUXO</h1>
         <h3>ache seu numero verificador, com apenas um click</h3>
