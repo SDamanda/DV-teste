@@ -13,7 +13,7 @@ function App() {
     if (!busca.trim()) return;
     setCarregando(true);
     try {
-      const resposta = await fetch('https://seuprojeto.vercel.app/api/hello')
+      const resposta = await fetch('http://localhost:5004/buscar?q=banco')
       if (!resposta.ok) throw new Error('Resultado não encontrado!');
       const dados = await resposta.json();
       console.log(dados);
