@@ -47,12 +47,12 @@ body{
 }
 #introdução{
   background-color: rgba(0, 0, 0, 0.9);
-  padding: 100px;
+  padding: 120px;
   width: 1000px;
-  border-radius: 50px;
+  height: 500px;
+  border-radius: 150px;
   position: relative;
   z-index: 1;
-  
 }
 .bg-video{
   position: fixed;
